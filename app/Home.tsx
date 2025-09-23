@@ -1,33 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList, View } from 'react-native'; // Исправляем импорт
-import { fetchPosts } from './api';
-import PostCard from './components/PostCard';
-import { PostProps } from './types/Post';
+import React, { useEffect, useState } from 'react'
+import { FlatList, StyleSheet, View } from 'react-native' // Исправляем импорт
+import { fetchPosts } from './api'
+import Header from './components/Header'
+import PostCard from './components/PostCard'
+import PostProps from './types/Post'
 
 const Home = () => {
-  const [posts, setPosts] = useState<PostProps[]>([]);
+	const [posts, setPosts] = useState<PostProps[]>([])
+	const handleFetchPosts = async () => {
+		const fetchedPosts = await fetchPosts()
+		setPosts(fetchedPosts)
+	}
+	useEffect(() => {
+		handleFetchPosts()
+	}, [])
 
-  const handleFetchPosts = async () => {
-    const fetchedPosts = await fetchPosts();
-    setPosts(fetchedPosts);
-  };
+	return (
+		<View style={styles.container}>
+			<Header />
+			<FlatList
+				data={posts}
+				renderItem={({ item }) => <PostCard {...item} />}
+				keyExtractor={item => item.id.toString()}
+				contentContainerStyle={{
+					paddingVertical: 16,
+					zIndex: 1
+				}}
+			/>
+		</View>
+	)
+}
 
-  useEffect(() => {
-    handleFetchPosts();
-  }, []);
+const styles = StyleSheet.create({
+	container: {
+		flex: 1
+	}
+})
 
-  return (
-    <View style={{flex:1, alignItems:'center'}}>
-      <FlatList
-	  	keyExtractor={(item) => item.id.toString()}
-        data={posts}
-        renderItem={({ item }) => <PostCard key={item.id} {...item} />}
-        contentContainerStyle={{
-          padding: 16,
-        }}
-      />
-    </View>
-  );
-};
-
-export default Home;
+export default Home
