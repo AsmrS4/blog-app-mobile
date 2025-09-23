@@ -1,26 +1,27 @@
-import { PostProps } from '@/types/Post'
+import PostProps from '@/types/Post'
+import { HeartFilled } from '@ant-design/icons'
 import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
-
-const PostCard = (props: PostProps) => {
+const PostCard = (item: PostProps) => {
 	return (
 		<View style={styles.card}>
 			<View style={styles.headerWrapper}>
-				<Text>{props.title}</Text>
-				<Text>{props.author.username}</Text>
+				<Text style={styles.title}>{item.title}</Text>
+				<Text style={styles.author}>{item.author.username}</Text>
 			</View>
-			{props.image && (
-				<View style={styles.imageContainer}>
-					<Image
-						source={{ uri: props.image?.toString() }}
-						style={{ width: '100%', height: '100%' }}
-						resizeMode='cover'
-					/>
-				</View>
-			)}
+			{item.image ? (
+				<Image
+					source={{ uri: item.image }}
+					style={[styles.image, { height: 200 }]}
+					resizeMode='cover'
+				/>
+			) : null}
 			<View style={styles.content}>
-				<Text>{props.text}</Text>
-				<Text>{props.createTime}</Text>
+				<Text style={styles.text}>{item.text}</Text>
+				<View style={styles.footerWrapper}>
+					<HeartFilled style={{ color: 'red' }} />
+					<Text style={styles.time}>{item.createTime}</Text>
+				</View>
 			</View>
 		</View>
 	)
@@ -28,29 +29,43 @@ const PostCard = (props: PostProps) => {
 
 const styles = StyleSheet.create({
 	card: {
-		display: 'flex',
 		flexDirection: 'column',
-		justifyContent: 'space-between',
-		marginBottom: 10,
-		borderRadius: 8,
-		borderWidth: 1
+		justifyContent: 'space-between'
 	},
 	headerWrapper: {
-		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		padding: 10
 	},
-	imageContainer: {
+	title: {
+		fontWeight: 'bold',
+		fontSize: 16
+	},
+	author: {},
+	image: {
 		width: '100%',
-		minHeight: 200,
-		overflow: 'hidden'
+		marginTop: 10
 	},
 	content: {
-		display: 'flex',
-		flexDirection: 'column',
+		marginTop: 10
+	},
+	text: {
+		fontSize: 14,
 		padding: 10
+	},
+	time: {
+		color: '#888',
+		fontSize: 12,
+		padding: 10
+	},
+	footerWrapper: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		paddingHorizontal: 10
 	}
 })
+
 export default PostCard
