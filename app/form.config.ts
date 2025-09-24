@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 const passwordValidationRegex = /^(?=.*[a-z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
-export const authSchema = z.object({
+const authSchema = z.object({
     username: z.string()
         .trim()
         .nonempty({message: 'Поле обязательно к заполнению'})
@@ -13,6 +13,8 @@ export const authSchema = z.object({
         .min(8, {message: 'Минимальная длина пароля 8 символов'})
         .refine(val => passwordValidationRegex.test(val), {message: 'пароль должен содержать 1 цифру и 1 букву'})
 })
+
+export default authSchema;
 
 export const registerSchema = z.object({
     username: z.string()

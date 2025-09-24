@@ -1,13 +1,15 @@
-import { registerUser } from '@/api'
+import api from '@/api'
 import { registerSchema, RegisterSchema } from '@/form.config'
 import { RegisterProps } from '@/types/Auth'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Alert, Button, View } from 'react-native'
-import InputField from '../components/InputField'
+import InputField from './components/InputField'
 
-const RegisterScreen = ({ navigation }: any) => {
+const RegisterScreen = () => {
+	const navigation = useNavigation()
 	const {
 		control,
 		handleSubmit,
@@ -18,12 +20,12 @@ const RegisterScreen = ({ navigation }: any) => {
 
 	const onSubmit = async (data: RegisterProps) => {
 		try {
-			await registerUser(data)
+			await api.registerUser(data)
 			Alert.alert(
 				'Регистрация успешна!',
 				'Вы успешно зарегистрировались!'
 			)
-			navigation.navigate('Home')
+			//navigation.navigate('Home')
 		} catch (error) {
 			Alert.alert('Ошибка', 'Что-то пошло не так. Попробуйте позже.')
 		}
@@ -35,22 +37,19 @@ const RegisterScreen = ({ navigation }: any) => {
 				control={control}
 				render={({ field: { onChange, value } }) => (
 					<InputField
-						label='Имя'
+						label='Придумайте логин'
 						value={value}
 						onChangeText={onChange}
 						error={errors?.username && errors.username.message}
 					/>
 				)}
 				name='username'
-				rules={{
-					required: true
-				}}
 			/>
 			<Controller
 				control={control}
 				render={({ field: { onChange, value } }) => (
 					<InputField
-						label='Пароль'
+						label='Придумайте пароль'
 						secureTextEntry
 						value={value}
 						onChangeText={onChange}
@@ -58,9 +57,6 @@ const RegisterScreen = ({ navigation }: any) => {
 					/>
 				)}
 				name='password'
-				rules={{
-					required: true
-				}}
 			/>
 			<Controller
 				control={control}
@@ -77,9 +73,6 @@ const RegisterScreen = ({ navigation }: any) => {
 					/>
 				)}
 				name='confirmPassword'
-				rules={{
-					required: true
-				}}
 			/>
 			<Button
 				title='Зарегистрироваться'

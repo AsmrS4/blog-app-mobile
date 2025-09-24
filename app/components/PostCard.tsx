@@ -1,4 +1,4 @@
-import PostProps from '@/types/Post'
+import { PostProps } from '@/types/Post'
 import { HeartFilled } from '@ant-design/icons'
 import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'

@@ -1,14 +1,14 @@
-import { fetchPosts } from '@/api'
+import api from '@/api'
 import Header from '@/components/Header'
 import PostCard from '@/components/PostCard'
-import PostProps from '@/types/Post'
+import { PostProps } from '@/types/Post'
 import React, { useEffect, useState } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 
 const Home = () => {
 	const [posts, setPosts] = useState<PostProps[]>([])
 	const handleFetchPosts = async () => {
-		const fetchedPosts = await fetchPosts()
+		const fetchedPosts = await api.fetchPosts()
 		setPosts(fetchedPosts)
 	}
 	useEffect(() => {

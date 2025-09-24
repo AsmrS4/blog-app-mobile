@@ -1,21 +1,23 @@
 import { UserProps } from "./User";
 
-export interface AuthProps {
+type AuthProps = {
     username: string;
     password: string;
 }
 
-export interface RegisterProps {
+export default AuthProps
+
+export type RegisterProps = {
     username: string;
     password: string;
     confirmPassword: string;
 }
 
-export interface SessionResponse {
+export type SessionResponse ={
     accessResponse: AccessToken;
     profile: UserProps
 }
 
-export interface AccessToken {
+export type AccessToken ={
     accessToken: string
 }
