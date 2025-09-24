@@ -1,9 +1,9 @@
+import { fetchPosts } from '@/api'
+import Header from '@/components/Header'
+import PostCard from '@/components/PostCard'
+import PostProps from '@/types/Post'
 import React, { useEffect, useState } from 'react'
-import { FlatList, StyleSheet, View } from 'react-native' // Исправляем импорт
-import { fetchPosts } from './api'
-import Header from './components/Header'
-import PostCard from './components/PostCard'
-import PostProps from './types/Post'
+import { FlatList, StyleSheet, View } from 'react-native'
 
 const Home = () => {
 	const [posts, setPosts] = useState<PostProps[]>([])
