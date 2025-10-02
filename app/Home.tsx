@@ -1,15 +1,18 @@
 import api from '@/api'
 import Header from '@/components/Header'
-import PostCard from '@/components/PostCard'
 import { PostProps } from '@/types/Post'
 import React, { useEffect, useState } from 'react'
-import { FlatList, StyleSheet, View } from 'react-native'
-
+import { ScrollView, StyleSheet, View } from 'react-native'
+import PostCard from './components/PostCard'
 const Home = () => {
 	const [posts, setPosts] = useState<PostProps[]>([])
 	const handleFetchPosts = async () => {
-		const fetchedPosts = await api.fetchPosts()
-		setPosts(fetchedPosts)
+		try {
+			const fetchedPosts = await api.fetchPosts()
+			setPosts(fetchedPosts)
+		} catch (error) {
+			setPosts([])
+		}
 	}
 	useEffect(() => {
 		handleFetchPosts()
@@ -18,15 +21,11 @@ const Home = () => {
 	return (
 		<View style={styles.container}>
 			<Header />
-			<FlatList
-				data={posts}
-				renderItem={({ item }) => <PostCard {...item} />}
-				keyExtractor={item => item.id.toString()}
-				contentContainerStyle={{
-					paddingVertical: 16,
-					zIndex: 1
-				}}
-			/>
+			<ScrollView style={styles.list}>
+				{posts.map(item => (
+					<PostCard key={item.id} {...item} />
+				))}
+			</ScrollView>
 		</View>
 	)
 }
@@ -34,6 +33,10 @@ const Home = () => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1
+	},
+	list: {
+		height: 400,
+		overflow: 'scroll'
 	}
 })
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, TextInput } from 'react-native'
 
-interface IProps {
+interface InputProps {
 	label?: string
 	value: string | undefined
 	onChangeText: (text: string) => void
@@ -15,7 +15,7 @@ const InputField = ({
 	onChangeText,
 	error,
 	secureTextEntry = false
-}: IProps) => {
+}: InputProps) => {
 	return (
 		<>
 			<TextInput
@@ -36,7 +36,9 @@ const styles = StyleSheet.create({
 		borderColor: '#ccc',
 		borderWidth: 1,
 		paddingHorizontal: 8,
-		marginBottom: 10
+		marginBottom: 10,
+		borderRadius: 8,
+		width: '80%'
 	},
 	error: {
 		color: 'red',

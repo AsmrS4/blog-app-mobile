@@ -3,7 +3,6 @@
   "compilerOptions": {
     "strict": true,
     "baseUrl": ".",
-    
     "paths": {
       "@/*": [
         "app/*"
@@ -13,7 +12,13 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-, "app/components/PostCard.js", "app/components/PostCard.js", "app/App.js", "app/HomeScreen.js", "app/screens/HomeScreen.js"  ]
+    "android/.expo/types/**/*.ts",
+    "expo-env.d.ts",
+    "app/components/PostCard.js",
+    "app/components/PostCard.js",
+    "app/App.js",
+    "app/HomeScreen.js",
+    "app/screens/HomeScreen.js",
+    ".expo/types/**/*.ts"
+  ]
 }
