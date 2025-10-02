@@ -1,5 +1,6 @@
 import { UserProps } from "./User";
 
+
 type PostProps = {
     id: string;
     title: string;
@@ -10,4 +11,4 @@ type PostProps = {
     modifiedTime?: string | null; 
 }
 
-export default PostProps
+export type { PostProps };
